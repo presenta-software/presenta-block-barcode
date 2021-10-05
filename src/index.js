@@ -17,7 +17,7 @@ const block = function (el, config) {
   el.appendChild(child)
 
   if (content) {
-    JsBarcode('#' + uid, content, config)
+    JsBarcode('#' + uid, content)
   }
 }
 
