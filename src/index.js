@@ -10,11 +10,15 @@ const block = function (el, config) {
   let uid = css.barcode + '-' + Math.random()
   uid = uid.replace('.', '')
 
-  child.innerHTML = `<svg id="${uid}"></svg>`
+  const frag = content ? `<svg id="${uid}"></svg>` : '<p>Barcode</p>'
+
+  child.innerHTML = frag
 
   el.appendChild(child)
 
-  JsBarcode('#' + uid, content, config)
+  if (content) {
+    JsBarcode('#' + uid, content, config)
+  }
 }
 
 export default block
