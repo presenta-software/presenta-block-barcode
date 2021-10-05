@@ -2,23 +2,33 @@ import css from './style.css'
 import JsBarcode from 'jsbarcode'
 
 const block = function (el, config) {
-  const content = config.content
+  const that = this
+  return new Promise((resolve, reject) => {
+    const content = config.content
 
-  const child = document.createElement('div')
-  child.classList.add(css.barcode)
+    const child = document.createElement('div')
+    child.classList.add(css.barcode)
 
-  let uid = css.barcode + '-' + Math.random()
-  uid = uid.replace('.', '')
+    let uid = css.barcode + '-' + Math.random()
+    uid = uid.replace('.', '')
 
-  const frag = content ? `<svg id="${uid}"></svg>` : '<p>Barcode</p>'
+    const frag = content ? `<svg id="${uid}"></svg>` : '<p>Barcode</p>'
 
-  child.innerHTML = frag
+    child.innerHTML = frag
 
-  el.appendChild(child)
+    el.appendChild(child)
 
-  if (content) {
-    JsBarcode('#' + uid, content)
-  }
+    console.log(config)
+
+    if (content) {
+      setTimeout(() => {
+        JsBarcode('#' + uid, content, config)
+        resolve(that)
+      })
+    } else {
+      resolve(that)
+    }
+  })
 }
 
 export default block
